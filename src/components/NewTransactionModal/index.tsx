@@ -64,6 +64,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           placeholder="Título"
           value={title}
           onChange={event => {setTitle(event.target.value)}}
+          required
         />
 
         <input
@@ -99,6 +100,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
           placeholder="Categoria"
           value={category}
           onChange={event => {setCategory(event.target.value)}}
+          required
         />
 
         <button type="submit">Cadastrar</button>

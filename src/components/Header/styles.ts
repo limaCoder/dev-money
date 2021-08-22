@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.header`
-  background: var(--blue);
+  background: var(--black);
 `
 
 export const Content = styled.div`
@@ -11,6 +11,15 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  img {
+    max-width: 15rem;
+
+    @media screen and (max-width: 450px) {
+      max-width: 10rem;
+    }
+  }
+
   button {
     font-size: 1rem;
     color: #fff;

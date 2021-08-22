@@ -1,8 +1,13 @@
+import removeImg from '../../assets/remove.svg';
 import { useTransactions } from "../../hooks/useTransactions";
 import { Container } from "./styles";
 
 export function TransactionTable() {
-  const { transactions } = useTransactions();
+  const { transactions, removeTransaction } = useTransactions();
+
+  async function handleRemoveTransaction(transactionId: number) {
+    await removeTransaction(transactionId);
+  }
 
   return(
     <Container>
@@ -33,6 +38,11 @@ export function TransactionTable() {
                     new Date(transaction.createdAt)
                   )}
                 </td>
+                <td>
+                  <button onClick={() => handleRemoveTransaction(transaction.id)}>
+                    <img src={removeImg} alt="Remover" />
+                  </button>
+              </td>
               </tr>
             )
           })}

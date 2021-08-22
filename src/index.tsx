@@ -8,7 +8,7 @@ createServer({
     transaction: Model,
   },
 
-  seeds(server) {
+  /* seeds(server) {
     server.db.loadData({
       transactions: [
         {
@@ -29,7 +29,7 @@ createServer({
         }
       ]
     })
-  },
+  }, */
 
   routes() {
     this.namespace = 'api';
@@ -43,6 +43,20 @@ createServer({
 
       return schema.create('transaction', data)
     })
+
+    this.put('/transactions/:id', (schema, request) => {
+      const id = request.params.id;
+      const data = JSON.parse(request.requestBody);
+      const transaction = schema.db.transactions.find(id);
+      transaction.update({ ...data });
+      return this.schema.all('transaction');
+    });
+
+    this.delete('/transactions/:id', (schema, request) => {
+      const id = request.params.id;
+      schema.db.transactions.remove(id);
+      return this.schema.all('transaction');
+    });
   }
 })
 

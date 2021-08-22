@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { api } from '../services/api';
 
+
 interface Transaction {
   id: number;
   title: string;
@@ -19,6 +20,7 @@ interface TransactionProviderProps {
 interface TransactionsContexData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
+  removeTransaction: (transactionId: number) => Promise<void>;
 }
 
 export const TransactionsContext = createContext<TransactionsContexData>(
@@ -29,10 +31,13 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    api.get('transactions')
-      .then(response => setTransactions(response.data.transactions))
-  }, []);
-
+    const returnURL =  localStorage.getItem('transactions');
+    if (returnURL) {
+      const data = JSON.parse(returnURL)
+      setTransactions(data)
+    }
+  }, [])
+   
   async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post('/transactions', {
       ...transactionInput,
@@ -45,10 +50,25 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
       ...transactions,
       transaction,
     ]);
+
+    localStorage.setItem('transactions', JSON.stringify(
+      [
+        ...transactions,
+        transaction,
+      ]
+    ));
+
+  }
+  
+  async function removeTransaction(transactionId: number) {
+    const { data } = await api.delete(`/transactions/${transactionId}`);
+    setTransactions(data.transactions);
+
+    localStorage.removeItem(`transactions`);
   }
 
   return (
-    <TransactionsContext.Provider value={{ transactions, createTransaction }}>
+    <TransactionsContext.Provider value={{ transactions, createTransaction, removeTransaction }}>
       {children}
     </TransactionsContext.Provider>
   )
