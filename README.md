@@ -18,7 +18,7 @@
 
 <br>
 
-<img alt="dt money" src="" width="100%">
+<img alt="dt money" src="dev-money-screenshot.png" width="100%">
 
 ## ✨ Tecnologias
 
