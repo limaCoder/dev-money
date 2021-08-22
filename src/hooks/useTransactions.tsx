@@ -64,7 +64,11 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     const { data } = await api.delete(`/transactions/${transactionId}`);
     setTransactions(data.transactions);
 
-    localStorage.removeItem(`transactions`);
+    const { transaction } = data;
+
+    console.log(transaction)
+
+    localStorage.removeItem('transaction.id');
   }
 
   return (
