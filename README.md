@@ -44,14 +44,6 @@ Além de tudo isso, eu adicionei algumas melhorias ao projeto como:
 - [x] Funcionalidade de remover uma transação cadastrada
 - [x] Validação de dados obrigatórios
 
-## 🚀 Como executar
-
-- Clone o repositório
-- Instale as dependências com `yarn`
-- Inicie o servidor com `yarn dev`
-
-Agora você pode acessar [`localhost:8080`](http://localhost:8080) do seu navegador.
-
 ## 📄 Licença
 
 Esse projeto está sob a licença MIT.
